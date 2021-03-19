@@ -1,0 +1,30 @@
+{
+  "name": "management-system-backend",
+  "version": "1.0.0",
+  "description": "The back end of the employee management system",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TXP777/Management-system-backend.git"
+  },
+  "author": "Xianping Tao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TXP777/Management-system-backend/issues"
+  },
+  "homepage": "https://github.com/TXP777/Management-system-backend#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.1.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^7.22.0",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
