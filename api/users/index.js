@@ -15,34 +15,34 @@ router.get('/:user_id', (req, res, next) => {
     user =>  res.status(201).json(user)
   ).catch(next);
 });
-// //authenticate a user
-// router.post('/login', async (req, res, next) => {
-//   if (!req.body.username || !req.body.password) {
-//     res.status(401).json({
-//       success: false,
-//       msg: 'Please pass username and password.',
-//     });
-//   } else {
-//     const user = await User.findByUserName(req.body.username).catch(next);
-//       if (!user) return res.status(401).json({ code: 401, msg: 'Authentication failed. User not found.' });
-//       user.comparePassword(req.body.password, (err, isMatch) => {
-//         if (isMatch && !err) {
-//           // if user is found and password is right create a token
-//           const token = jwt.sign(user.username, process.env.SECRET);
-//           // return the information including token as JSON
-//           res.status(200).json({
-//             success: true,
-//             token: 'BEARER ' + token,
-//           });
-//         } else {
-//           res.status(401).json({
-//             code: 401,
-//             msg: 'Authentication failed. Wrong password.'
-//           });
-//         }
-//       });
-//     }
-// });
+ //authenticate a user
+router.post('/login', async (req, res, next) => {
+   if (!req.body.username || !req.body.password) {
+    res.status(401).json({
+       success: false,
+       msg: 'Please pass username and password.',
+     });
+   } else {
+     const user = await User.findByUserName(req.body.username).catch(next);
+       if (!user) return res.status(401).json({ code: 401, msg: 'Authentication failed. User not found.' });
+       user.comparePassword(req.body.password, (err, isMatch) => {
+         if (isMatch && !err) {
+           // if user is found and password is right create a token
+           const token = jwt.sign(user.username, process.env.SECRET);
+           // return the information including token as JSON
+           res.status(200).json({
+             success: true,
+              token: 'BEARER ' + token,
+           });
+         } else {
+           res.status(401).json({
+             code: 401,
+             msg: 'Authentication failed. Wrong password.'
+           });
+         }
+       });
+     }
+ });
 router.post('/register', async (req,res,next) =>{
   const user = await User.findByUserName(req.body.username).catch(next);
   if (user) {
@@ -65,7 +65,7 @@ router.put('/:user_id/update',async(req, res,next) =>{
 });
 router.delete('/:user_id/delete', async (req, res, next) =>{
   const user_id = req.params.user_id;
-  User.remove({user_id: user_id})
+  User.deleteOne({user_id: user_id})
   .then(() => res.status(200).json({message:"Successfully Deleted!"})).catch(next);
 })
 

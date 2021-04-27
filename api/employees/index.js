@@ -38,7 +38,7 @@ router.put('/:employee_id/update',async(req, res,next) =>{
 });
 router.delete('/:employee_id/delete', async (req, res, next) =>{
   const employee_id = req.params.employee_id;
-  Employee.remove({employee_id: employee_id})
+  Employee.deleteOne({employee_id: employee_id})
   .then(() => res.status(200).json({message:"Successfully Deleted!"})).catch(next);
 })
 

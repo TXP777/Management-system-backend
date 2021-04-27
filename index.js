@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import './db';
-import {loadUsers} from './seedData'
 import usersRouter from './api/users';
 import employeesRouter from './api/employees';
+import attendanceRouter from './api/attendance';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from './authenticate';
@@ -43,8 +43,9 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.use('/api/users', usersRouter);
-app.use('/api/employees', employeesRouter);
+app.use('/users', usersRouter);
+app.use('/employees', employeesRouter);
+app.use('/attendance', attendanceRouter);
 
 
 app.use(errHandler);
