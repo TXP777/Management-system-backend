@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   username: { type: String, unique: true},
   password: {type: String},
-  user_id:{type:Number,unique:true},
+  user_id:{type:String,unique:true},
   employee_id:{type:Number,unique:true}
 });
 UserSchema.statics.findByUserName = function (username) {

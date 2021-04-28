@@ -16,6 +16,13 @@ Employee.findByEmployeeId(employee_id).then(
 ).catch(next);
 });
 
+router.delete('/:employee_id/delete', async (req, res, next) =>{
+  const employee_id = req.params.employee_id;
+  Employee.deleteOne({employee_id: employee_id})
+  .then(() => res.status(200).json({message:"Successfully Deleted!"})).catch(next);
+});
+
+
 //add a single employee
 router.post('/addEmployee', async (req,res,next) =>{
   const employee_id = await Employee.findByEmployeeId(req.body.employee_id).catch(next);
@@ -30,17 +37,13 @@ router.post('/addEmployee', async (req,res,next) =>{
 }
 });
 router.put('/:employee_id/update',async(req, res,next) =>{
-  User.findOneAndUpdate({employee_id: req.params.employee_id}, {employee_name:req.body.employee_name,employee_gender:req.body.employee_gender,employee_phone:req.body.employee_phone,employee_address:req.body.employee_address })
+  Employee.findOneAndUpdate({employee_id: req.params.employee_id}, {employee_name:req.body.employee_name,employee_gender:req.body.employee_gender,employee_phone:req.body.employee_phone,employee_address:req.body.employee_address })
   .then(function(){
-    User.findByUserId(req.params.user_id)
-    .then(user => res.json(200,user)).catch(next);
-  });
+    Employee.findByEmployeeId(req.params.employee_id)
+    .then(employee => res.status(200).json(employee)).catch(next);
+  }).catch(next);
 });
-router.delete('/:employee_id/delete', async (req, res, next) =>{
-  const employee_id = req.params.employee_id;
-  Employee.deleteOne({employee_id: employee_id})
-  .then(() => res.status(200).json({message:"Successfully Deleted!"})).catch(next);
-})
+
 
 
 export default router;

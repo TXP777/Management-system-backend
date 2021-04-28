@@ -15,6 +15,12 @@ Attendance.findByAttendanceId(attendance_id).then(
   attendance =>  res.status(201).json(attendance)
 ).catch(next);
 });
+//delete 
+router.delete('/:attendance_id/delete', async (req, res, next) =>{
+  const attendance_id = req.params.attendance_id;
+  Attendance.deleteOne({attendance_id: attendance_id})
+  .then(() => res.status(200).json({message:"Successfully Deleted!"})).catch(next);
+})
 
 //add a single recording
 router.post('/addAttendance', async (req,res,next) =>{
@@ -29,6 +35,8 @@ router.post('/addAttendance', async (req,res,next) =>{
   });
 }
 });
+
+
 
 
 export default router;
