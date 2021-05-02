@@ -21,6 +21,7 @@ router.delete('/:user_id/delete', async (req, res, next) =>{
   User.deleteOne({user_id: user_id})
   .then(() => res.status(200).json({message:"Successfully Deleted!"})).catch(next);
 });
+
  //authenticate a user
 router.post('/login', async (req, res, next) => {
    if (!req.body.username || !req.body.password) {
@@ -56,15 +57,16 @@ router.post('/register', async (req,res,next) =>{
   if (user) {
     res.status(401).json({ code: 401, msg: 'The username has already been used!' });
   }else {
-  await User.create(req.body).catch(next);
-  res.status(201).json({
+  await User.create(req.body).then(() => res.status(201).json({
     code: 201,
     msg: 'Successful created new user.',
-  });
+  })).catch(next);
 }
 });
+
+
 router.put('/:user_id/update',async(req, res,next) =>{
-  User.findOneAndUpdate({user_id: req.params.user_id}, {username:req.body.username,password:req.body.password })
+  User.findOneAndUpdate({user_id: req.params.user_id}, {username:req.body.username,password:req.body.password,employee_id:req.body.employee_id })
   .then(function(){
     User.findByUserId(req.params.user_id)
     .then(user => res.status(200).json(user)).catch(next);

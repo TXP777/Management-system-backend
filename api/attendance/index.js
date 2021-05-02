@@ -18,21 +18,24 @@ Attendance.findByAttendanceId(attendance_id).then(
 //delete 
 router.delete('/:attendance_id/delete', async (req, res, next) =>{
   const attendance_id = req.params.attendance_id;
+  if(attendance_id){
   Attendance.deleteOne({attendance_id: attendance_id})
   .then(() => res.status(200).json({message:"Successfully Deleted!"})).catch(next);
+  }else{
+    res.status(401).json({ code: 401, msg: 'Delete failed!' });
+  }
 })
 
 //add a single recording
 router.post('/addAttendance', async (req,res,next) =>{
   const attendance_id = await Attendance.findByAttendanceId(req.body.attendance_id).catch(next);
   if (attendance_id) {
-    res.status(401).json({ code: 401, msg: 'This record is duplicated!' });
+    res.status(401).json({ code: 401, msg: 'Record already exists!' });
   }else {
-  await Attendance.create(req.body).catch(next);
-  res.status(201).json({
+  await Attendance.create(req.body).then(() => res.status(201).json({
     code: 201,
     msg: 'Successful created new recording.',
-  });
+  })).catch(next);
 }
 });
 

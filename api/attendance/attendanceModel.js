@@ -7,8 +7,8 @@ const AttendanceSchema = new Schema({
     employee_id:{type:Number},
     employee_name:{type:String},
     department_id:{type:Number},
-    workingtime:{type:Number},
-    offworktime:{type:Number},
+    workingtime:{type:String},
+    offworktime:{type:String},
     numberoflateandleaveearly:{type:Number},
     createtime:{type:Number},
     status:{type:Number}

@@ -29,11 +29,10 @@ router.post('/addEmployee', async (req,res,next) =>{
   if (employee_id) {
     res.status(401).json({ code: 401, msg: 'The employee_id has already been used!' });
   }else {
-  await Employee.create(req.body).catch(next);
-  res.status(201).json({
+  await Employee.create(req.body).then(() => res.status(201).json({
     code: 201,
     msg: 'Successful created new employee.',
-  });
+  })).catch(next);
 }
 });
 router.put('/:employee_id/update',async(req, res,next) =>{
