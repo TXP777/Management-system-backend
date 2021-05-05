@@ -35,10 +35,10 @@ router.post('/addEmployee', async (req,res,next) =>{
   })).catch(next);
 }
 });
-router.put('/:employee_id/update',async(req, res,next) =>{
-  Employee.findOneAndUpdate({employee_id: req.params.employee_id}, {employee_name:req.body.employee_name,employee_gender:req.body.employee_gender,employee_phone:req.body.employee_phone,employee_address:req.body.employee_address })
+router.post('/update',async(req, res,next) =>{
+  Employee.findOneAndUpdate({employee_id: req.body.employee_id}, {employee_name:req.body.employee_name,employee_gender:req.body.employee_gender,employee_phone:req.body.employee_phone,employee_address:req.body.employee_address })
   .then(function(){
-    Employee.findByEmployeeId(req.params.employee_id)
+    Employee.findByEmployeeId(req.body.employee_id)
     .then(employee => res.status(200).json(employee)).catch(next);
   }).catch(next);
 });

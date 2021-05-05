@@ -44,7 +44,7 @@ app.use(session({
 }));
 
 app.use('/users', usersRouter);
-app.use('/employees', employeesRouter);
+app.use('/employee', employeesRouter);
 app.use('/attendance', attendanceRouter);
 
 

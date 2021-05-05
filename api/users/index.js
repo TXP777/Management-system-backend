@@ -65,10 +65,10 @@ router.post('/register', async (req,res,next) =>{
 });
 
 
-router.put('/:user_id/update',async(req, res,next) =>{
-  User.findOneAndUpdate({user_id: req.params.user_id}, {username:req.body.username,password:req.body.password,employee_id:req.body.employee_id })
+router.post('/update',async(req, res,next) =>{
+  User.findOneAndUpdate({user_id: req.body.user_id}, {username:req.body.username,password:req.body.password,employee_id:req.body.employee_id })
   .then(function(){
-    User.findByUserId(req.params.user_id)
+    User.findByUserId(req.body.user_id)
     .then(user => res.status(200).json(user)).catch(next);
   });
 
